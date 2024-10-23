@@ -42,8 +42,8 @@ resource "aws_eks_cluster" "eks" {
 
   vpc_config {
     subnet_ids = [
-      "subnet-03f3cd99a48a2db7c",  # Add your actual subnet IDs here
-      "subnet-001a3b80bd44fbbd4"   # Another subnet ID
+      "subnet-074b328a3cde8397a",  # Add your actual subnet IDs here
+      "subnet-06877696fc3166ff7"   # Another subnet ID
     ]
   }
 
@@ -85,10 +85,10 @@ resource "aws_iam_role_policy_attachment" "ec2_container_registry_read_only" {
 # Launch Template for EKS nodes
 resource "aws_launch_template" "eks_node_launch_template" {
   name_prefix   = "eks-node-"
-  image_id      = "ami-033e9014aebd5daca"
+  image_id      = "ami-0e86e20dae9224db8"
   instance_type = "t3.medium"
 
-  key_name = "test1jenkins"
+  key_name = "jenkins"
 
   user_data = base64encode(<<-EOF
     #!/bin/bash
@@ -111,8 +111,8 @@ resource "aws_eks_node_group" "eks_nodes" {
   node_group_name = "my-eks-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = [
-    "subnet-03f3cd99a48a2db7c",
-    "subnet-001a3b80bd44fbbd4"
+    "subnet-074b328a3cde8397a",
+    "subnet-06877696fc3166ff7"
   ]
 
   scaling_config {
